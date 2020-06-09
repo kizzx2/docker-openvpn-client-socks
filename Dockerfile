@@ -19,6 +19,8 @@ RUN true \
 
 COPY sockd.conf /etc/
 
+HEALTHCHECK --interval=60s --timeout=10s --start-period=30s CMD curl -L 'https://ipinfo.io'
+
 ENTRYPOINT [ \
     "/bin/bash", "-c", \
     "cd /etc/openvpn && /usr/sbin/openvpn --config *.conf --script-security 2 --up /usr/local/bin/sockd.sh" \
